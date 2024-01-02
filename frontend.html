@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- CSS file -->
+    <link rel="stylesheet" type="text/css" href="project.css">
+    <!-- Background styles-->
+    <style>
+        .red-background {
+            background-color: red;
+            height: 20px;
+        }
+
+        .img-background {
+            background-image: url("bookback.jpg");
+            
+
+            height: 450px;
+        }
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+ 
+<body style="background: linear-gradient(to right, #d7d2cc 0%, #304352 100%);">
+    <!-- Navigation bar-->
+    <div class="topnav">
+        <a class="active" href="#home">Home</a>
+        <a id="log" href="#logout" onclick="logout()">Logout</a>
+        <a href="#profile" onclick="profile()">Profile</a>
+        <form >
+            <input type="text" id="myInput" onkeyup="searchBook()" placeholder="Search for books" title="Type in a name">
+        </form>
+        
+    </div>
+
+    <!-- Background color and image on the webpage, styles are in the head -->
+    <div class="red-background"></div>
+    <div class="img-background">
+
+        <h1 class ="card" style="font-size: 100px; margin-top: -10px; color: red;">50% OFF</h1>
+    </div>
+
+    <!-- Book data that is being displayed on the webpage -->
+    <ul id="myUL">
+        <div style="display: flex; flex-wrap: wrap;">
+            <!-- First Row -->
+            <div class="book-details" data-*=" One Plus One"  style="flex: 1; text-align: center;">
+                <img src="book1.JPG.JPG" alt="Book 1 Image" width="200" height="300">
+                <span>One Plus One</span>
+                <span>Jojo Moyes</span>
+                <span>$12.99</span>
+
+                <button id="buy1" type="button">BUY</button>
+            </div>
+
+            <div class="book-details" data-*="The Sum of All Thing" style="flex: 1; text-align: center;">
+                <img src="book2.JPG" alt="Book 2 Image" width="200" height="300">
+                <span>The Sum of All Things</span>
+                <span>Nicole Btooks</span>
+                <span>$15.99</span>
+
+                <button id="buy2" type="button">BUY</button>
+            </div>
+
+            <div class="book-details" data-*="All the Wind in the World" style="flex: 1; text-align: center;">
+                <img src="book3.JPG" alt="Book 3 Image" width="200" height="300">
+                <span>All the Wind in the World</span>
+                <span>Samantha Mabry</span>
+                <span>$12.99</span>
+
+                <button id="buy3" type="button">BUY</button>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap;">
+            <!-- Second Row -->
+            <div class="book-details" data-*="Everything, Everything" style="flex: 1; text-align: center;">
+                <img src="book4.JPG" alt="Book 4 Image" width="200" height="300">
+                <span>Everything, Everything </span>
+                <span>Nicola Yoon</span>
+                <span>$12.99</span>
+
+                <button id="buy4" type="button">BUY</button>
+            </div>
+
+            <div class="book-details" data-*="The Life of a Fox Big Book" style="flex: 1; text-align: center;">
+                <img src="book5.JPG" alt="Book 5 Image" width="200" height="300">
+                <span>The Life of a Fox Big Book</span>
+                <span>Jeff L. Williams</span>
+                <span>$19.99</span>
+
+                <button id="buy5" type="button">BUY</button>
+            </div>
+
+            <div class="book-details" data-*="What You Never Knew" style="flex: 1; text-align: center;">
+                <img src="book6.JPG" alt="Book 6 Image" width="200" height="300">
+                <span>What You Never Knew</span>
+                <span>Jessica Hamilton </span>
+                <span>$17.99</span>
+
+                <button id="buy6" type="button">BUY</button>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap;">
+            <!-- Second Row -->
+            <div class="book-details" data-*="48 Laws of Power" style="flex: 1; text-align: center;">
+                <img src="book7.jpg" alt="Book 7 Image" width="200" height="300">
+                <span>48 Laws of Power</span>
+                <span>Robert Greene</span>
+                <span>$15.99</span>
+
+                <button id="buy7" type="button">BUY</button>
+            </div>
+
+            <div class="book-details" data-*="A Promise is a Promise" style="flex: 1; text-align: center;">
+                <img src="book8.jpg" alt="Book 8 Image" width="200" height="300">
+                <span>A Promise is a Promise</span>
+                <span>Robert Munsch</span>
+                <span>$19.99</span>
+
+                <button id="buy8" type="button">BUY</button>
+            </div>
+
+            <div class="book-details" data-*="What You Never Knew" style="flex: 1; text-align: center;">
+                <img src="book6.JPG" alt="Book 9 Image" width="200" height="300">
+                <span>What You Never Knew</span>
+                <span>Jessica Hamilton </span>
+                <span>$17.99</span>
+
+                <button id="buy9" type="button">BUY</button>
+            </div>
+        </div>
+    </ul>
+
+  
+         <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <h3>Contact Us</h3>
+                    <p>Email: abdullahbaloch@trentu.ca</p>
+                    <p>Phone: +121 56556 565556</p>
+                    <p>Address: Toronto, Canada</p>
+                </div>
+                
+                <div class="footer-content">
+                    <h3>About Us</h3>
+                    <ul class="list">
+                        <li><p>Home</p></li>
+                        <li><p>About</p></li>
+                        <li><p>Services</p></li>
+                        <li><p>Products</p></li>
+                        <li><p>Contact</p></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="bottom-bar">
+                <p>&copy; 2023 BookStore. All rights reserved</p>
+            </div>
+        </footer>
+    
+
+    <script>
+        // Cart page function redirects user to cart.html page
+        function cartPage() {
+            window.location.href = 'cart.html';
+        }
+        // function redirects user to Login page
+        function logout() {
+            window.location.href = 'index.html';
+        }
+        // function redirects user to profile page
+        function profile() {
+            window.location.href = 'profile.html';
+        }
+
+        // this code is getting button ids and listens to each click on those buttons
+        // when a button is clicked, it changes users page to cart.html because of the cartPage function
+        document.getElementById("buy1").addEventListener('click', cartPage);
+        document.getElementById("buy2").addEventListener('click', cartPage);
+        document.getElementById("buy3").addEventListener('click', cartPage);
+        document.getElementById("buy4").addEventListener('click', cartPage);
+        document.getElementById("buy5").addEventListener('click', cartPage);
+        document.getElementById("buy6").addEventListener('click', cartPage);
+        document.getElementById("buy7").addEventListener('click', cartPage);
+        document.getElementById("buy8").addEventListener('click', cartPage);
+
+
+        // variable books that stores book details from their class 
+        var books = document.querySelectorAll(".book-details");
+
+        // searchBook function handles when a user inputs value into search bar
+        // based on user input into search bar, display which book they searched for and hide others 
+        function searchBook() {
+            // Initialize variables from search input
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+
+            // Loops through the books and displays books
+            // based on what the user searches
+            for (i = 0; i < books.length; i++) {
+                // stores book details from custom attribute into txtValue variable
+                txtValue = books[i].getAttribute("data-*");
+
+                // if user input matches book search details 
+                // then display the book, else don't display book
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    books[i].style.display = "";
+                } else {
+                    books[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

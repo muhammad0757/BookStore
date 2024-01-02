@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <!--  Title of the page -->
+      <title>Simple Registration Page</title>
+         <style>
+            .card {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                max-width: 400px;
+                margin: auto;
+                text-align: center;
+                font-family: "Trirong", serif;
+                background-color: rgb(0, 30, 72);
+            }
+            
+            body {
+                background: rgb(128, 158, 247); 
+                font-family: "Trirong", serif;
+            }
+        </style>
+        
+      
+   </head>
+    
+<body style="background: linear-gradient(to right, #d7d2cc 0%, #304352 100%);">
+      <h1 style="color: rgb(0, 30, 72); text-align: center;">Login Page</h1>
+
+
+      <div class="card">
+         <form   action="javascript:void(0);" method="POST" id="login" class="d-none">
+            <input type="text" id="emailLogin" autocomplete="off" placeholder="Email" class="input-lg" value="login"required>
+            <br>
+            <input type="password" id="passwordLogin" autocomplete="off" placeholder="Password" class="input-lg" value="login" required>
+            <br>
+            <button id="loginButton" class="btn btn-default">Login</button>
+         </form>
+         <form action="javascript:void(0);" method="POST" id="register">
+            <input type="text" id="emailRegister" autocomplete="off" placeholder="Email" class="input-lg" required>
+            <br>
+            <input type="password" id="passwordRegister" autocomplete="off" placeholder="Password" class="input-lg" value="register" required>
+            <br>
+            <input type="password" id="confirmPasswordRegister" autocomplete="off" placeholder="Confirm password" class="input-lg" value="register" required>
+            <br>
+            <button id="registerButton" class="btn btn-default">Register</button>
+         </form>
+         <!--  Creates a reset password button  -->
+         <form action="javascript:void(0);" method="POST" id="resetPassForm">
+            <input type="text" id="emailReset" autocomplete="off" placeholder="Email" class="input-lg" required>
+            <br>
+            <button id="resetPassButton" class="btn btn-default">Reset Password</button>
+         </form>
+      </div>
+   </body>
+   <script type="module">
+      // I have created more imports that are needed for auth and the real time database
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";  
+        import { getDatabase, set, ref,update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+       
+       // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // my firebase sdk for config
+        const firebaseConfig = {
+  apiKey: "AIzaSyBPf3u_zBvB07TsnKgJ22d4Lyd2Qtd9VyU",
+  authDomain: "project-e0d87.firebaseapp.com",
+  projectId: "project-e0d87",
+  storageBucket: "project-e0d87.appspot.com",
+  messagingSenderId: "763006077448",
+  appId: "1:763006077448:web:ef6ee11e0b732fa1dfdfbd"
+};
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+      
+      // -------------------------------------------------------------------------------------------------------------------------------------------------------//
+      // REGISTER BUTTON 
+      
+      // What this does is that it essentially handles when the register button is clicked. 
+      // When its clicked it executes the code and checks for errors and enable the user to register
+      
+      document.getElementById("registerButton").addEventListener('click', function() {
+      
+        
+        var email = document.getElementById("emailRegister").value;
+        var password = document.getElementById("passwordRegister").value;
+        var confirmPassword = document.getElementById("confirmPasswordRegister").value;
+      
+        // Check if passwords match if they don't it executes the alert
+        if (password !== confirmPassword) {
+          alert("Passwords must match");
+          return; 
+        }
+      
+      
+      // what it does is that it creates a user object with details from the newly registered user 
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            // User signed up successfully
+            const user = userCredential.user;
+      
+            //  user data being stored into the real time database
+            // in my case it stores the email and password of the user who signed up
+            set(ref(database, 'users/' + user.uid), {
+              email: email,
+              password: password
+            })
+            alert('User created'); // when user is created pop up
+      
+          })
+      // what this does is that it handle errors during the registration process
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(errorMessage);
+          });
+      })
+      
+      // END OF REGISTER BUTTON
+      // ----------------------------------------------------------------------------------------------------------------------------------------------------//
+      
+      
+      // ----------------------------------------------------------------------------------------------------------------------------------------------------//
+      // LOGIN BUTTON
+      // What this does is that it handles when the login button is clicked. 
+      // When its clicked, it executes the code and catches errors if any and makes sure the user logs successfully
+      
+      document.getElementById("loginButton").addEventListener('click', function() {
+      var email = document.getElementById("emailLogin").value;
+      var password = document.getElementById("passwordLogin").value;
+      
+       // email and password input values // handles when a user logs in
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          // when user log in take them to another page
+          
+          
+          // What this code does is that it creates a update in the real time database 
+          // so when a user logs in, the database stores the date they logged in 
+          const dt = new Date();
+          
+      
+      update(ref(database, 'users/' + user.uid), {
+        lastLogin: dt,
+      
+      })
+      
+            alert('logged in'); // pop up when user logs in
+            window.location.href = 'frontend.html';
+
+        })
+      
+        // error handling
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert(errorMessage);
+        });
+      })
+      
+      // END OF LOGIN BUTTON
+      //-------------------------------------------------------------------------------------------------------------------------------------------------------//
+      
+      
+      
+      
+      //------------------------------------------------------------------------------------------------------------------------------------------------------//
+      // RESET PASS BUTTON
+      // What this code does is that is handles when a user clicks on the reset password button and sends an email by firebase to reset the password
+      document.getElementById("resetPassButton").addEventListener('click', function() {
+          const email = document.getElementById("emailReset").value;
+          
+          const auth = getAuth();
+      
+          sendPasswordResetEmail(auth, email)
+            .then(() => {
+              alert('Password reset email sent! Check your inbox.'); // pop up when user inputs email to reset pass
+            })
+            // error handling
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              alert(errorMessage);
+            });
+      })
+      
+      
+      // END OF RESET BUTTON
+      
+      
+        
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+   </script>
+</html>

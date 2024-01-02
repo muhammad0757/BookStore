@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- Link to your external CSS file -->
+      <link rel="stylesheet" type="text/css" href="project.css">
+      <script src="cart.js"></script>
+   </head>
+   
+   <body style="background: linear-gradient(to right, #d7d2cc 0%, #304352 100%);">
+      <!-- These are the books that the user can click the button add to cart for them to be entered into the cart-->
+      <div class="shop-items">
+      <div class="shop-item" style="display: inline-block; margin-right: 20px;">
+         <img class="shop-item-image" src="book1.JPG.JPG" style="width: 100px; height: 150px;">
+         <div class="shop-item-details">
+            <span class="shop-item-price">$12.99</span>
+            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+         </div>
+         <span id= "book1" class="shop-item-title">The One Plus One</span>
+      </div>
+      <div class="shop-item" style="display: inline-block; margin-right: 20px;">
+         <img class="shop-item-image" src="book2.JPG" style="width: 100px; height: 150px;">
+         <div class="shop-item-details">
+            <span class="shop-item-price">$15.99</span>
+            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+         </div>
+         <span id = "book2" class="shop-item-title">The Sum of All Things</span>
+      </div>
+      <div class="shop-item" style="display: inline-block; margin-right: 20px;">
+         <img class="shop-item-image" src="book3.JPG" style="width: 100px; height: 150px;">
+         <div class="shop-item-details">
+            <span class="shop-item-price">$12.99</span>
+            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+         </div>
+         <span id ="book3"class="shop-item-title">All the Wind in the World</span>
+      </div>
+      <div class="shop-item" style="display: inline-block; margin-right: 20px;">
+         <img class="shop-item-image" src="book4.JPG" style="width: 100px; height: 150px;">
+         <div class="shop-item-details">
+            <span class="shop-item-price">$12.99</span>
+            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+         </div>
+         <span id ="book4"class="shop-item-title">Everything, Everything</span>
+      </div>
+      <div class="shop-item" style="display: inline-block; margin-right: 20px;">
+         <img class="shop-item-image" src="book5.JPG" style="width: 100px; height: 150px;">
+         <div class="shop-item-details">
+            <span class="shop-item-price">$19.99</span>
+            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+         </div>
+         <span id="book5"class="shop-item-title">The Life of a Fox Big Book</span>
+      </div>
+      <div class="shop-item" style="display: inline-block; margin-right: 20px; text-align: center;">
+         <img class="shop-item-image" src="book6.JPG" style="width: 100px; height: 150px;">
+         <div class="shop-item-details" style="margin-top: 10px;">
+            <span class="shop-item-price">$17.99</span>
+            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+         </div>
+         <span id ="book6"class="shop-item-title">What You Never Knew</span>
+      </div>
+      <div class="shop-item" style="display: inline-block; margin-right: 20px; text-align: center;">
+         <img class="shop-item-image" src="book7.jpg" style="width: 100px; height: 150px;">
+         <div class="shop-item-details" style="margin-top: 10px;">
+            <span class="shop-item-price">$15.99</span>
+            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+         </div>
+         <span id ="book7"class="shop-item-title">The 48 Laws of Power</span>
+      </div>
+      <div class="shop-item" style="display: inline-block; margin-right: 20px; text-align: center;">
+         <img class="shop-item-image" src="book8.jpg" style="width: 100px; height: 150px;">
+         <div class="shop-item-details" style="margin-top: 10px;">
+            <span class="shop-item-price">$19.99</span>
+            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+         </div>
+         <span id ="book8"class="shop-item-title">A promise is a promise</span>
+      </div>
+      <div style="position: relative; top: 180px; text-align: center;">
+         <div class="cart-items">
+            <!-- Cart items go here-->
+         </div>
+         <!-- Purchase button -->
+         <div class="cart-total" style="text-align: center;">
+            <strong class="cart-total">Total</strong>
+            <span class="cart-total-price">$0</span>
+            <button id="purchase" type="button" onclick="redirectToCheckout()">Go To Checkout</button>
+         </div>
+      </div>
+   </body>
+   <script type="module">
+      // Imports from Firebase 
+      // Firebase documentation: https://firebase.google.com/docs/auth/web/start?hl=en&authuser=1
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+      import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+      
+      // Firebase config
+      const firebaseConfig = {
+      apiKey: "AIzaSyBPf3u_zBvB07TsnKgJ22d4Lyd2Qtd9VyU",
+      authDomain: "project-e0d87.firebaseapp.com",
+      projectId: "project-e0d87",
+      storageBucket: "project-e0d87.appspot.com",
+      messagingSenderId: "763006077448",
+      appId: "1:763006077448:web:ef6ee11e0b732fa1dfdfbd"
+      };
+      
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+      const auth = getAuth();
+      
+      document.getElementById("purchase").addEventListener("click", function() {
+          window.location.href = "checkout.html";
+      
+          const book1Title = document.getElementById("book1").textContent;
+          const book2Title = document.getElementById("book2").textContent;
+          const book3Title = document.getElementById("book3").textContent;
+          const book4Title = document.getElementById("book4").textContent;
+          const book5Title = document.getElementById("book5").textContent;
+          const book6Title = document.getElementById("book6").textContent;
+          const book7Title = document.getElementById("book7").textContent;
+          const book8Title = document.getElementById("book8").textContent;
+      
+          // Check if a user is logged in
+          const user = auth.currentUser;
+      
+          // Get a reference to the user's data in the database
+          const db = getDatabase();
+          const userRef = ref(db, 'books/' + user.uid);
+      
+          // Update the user's data with the book information
+          set(userRef, {
+              book1Title: book1Title,
+              book2Title: book2Title,
+              book3Title: book3Title,
+              book4Title: book4Title,
+              book5Title: book5Title,
+              book6Title: book6Title,
+              book7Title: book7Title,
+              book8Title: book8Title
+          });
+      });
+      
+      onAuthStateChanged(auth, (user) => {
+          if (user) {
+              // Define the database reference
+              const db = getDatabase();
+              const userRef = ref(db, 'users/' + user.uid);
+              onValue(userRef, (snapshot) => {
+                  if (snapshot.exists()) {
+                      const userData = snapshot.val();
+                  }
+              });
+          }
+      });
+      
+        
+  
+      
+      
+   </script>
+</html>

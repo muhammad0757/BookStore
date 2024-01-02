@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Checkout Form</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" type="text/css">
+
+<style>
+
+   /* Styles for the  checkout form*/
+   
+      input[type=text] {
+         width: 100%;
+         margin-bottom: 20px;
+         padding: 12px;
+         border: 1px solid #ccc;
+         border-radius: 3px;
+       }
+       .btn {
+         background-color: #04AA6D;
+         color: white;
+         padding: 12px;
+         margin: 10px 0;
+         border: none;
+         width: 100%;
+         border-radius: 3px;
+         cursor: pointer;
+         font-size: 17px;
+       }
+       
+    
+   
+      </style>
+   </head>
+   <!-- Code for the checkout form-->
+         <body style="background: linear-gradient(to right, #d7d2cc 0%, #304352 100%);">
+
+      
+      <div class="row">
+        <div class="col-75">
+          <div class="container">
+            <form>
+              <!-- Billing Address-->
+              <div class="row">
+                <div class="col-50">
+                  <h3>Billing Address</h3>
+                  <label><i class="fa fa-user"></i> Full Name</label>
+                  <input type="text" id="fname" name="firstname" >
+                  <label><i class="fa fa-envelope"></i> Email</label>
+                  <input type="text" id="email" name="email" >
+                  <label><i class="fa fa-address-card-o"></i> Address</label>
+                  <input type="text" id="adr" name="address" >
+                  <label><i class="fa fa-institution"></i> City</label>
+                  <input type="text" id="city" name="city" >
+                  
+                  
+                <!-- Payment information-->
+                <div class="col-50">
+                  <h3>Payment</h3>
+                
+                  <label>Name on Card</label>
+                  <input type="text" id="cname" name="cardname" >
+                  <label>Credit card number</label>
+                  <input type="text" id="ccnum" name="cardnumber">
+                  <label>Exp Month</label>
+                  <input type="text" id="expmonth" name="expmonth">
+                  <div class="row">
+                    <div class="col-50">
+                      <label for="expyear">Exp Year</label>
+                      <input type="text" id="expyear" name="expyear">
+                    </div>
+                    <div class="col-50">
+                      <label>CVV</label>
+                      <input type="text" id="cvv" name="cvv" >
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+              <!-- checkbox to set shipping address same as billing
+                   and submit button to submit details-->
+              <label>
+                <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+              </label>
+              <input id="checkout" type="submit" class ="btn">
+
+            </form>
+          </div>
+        </div>
+        
+      </div>
+      
+   </body>
+
+
+
+   <script>
+// this code handles the click on the submit button
+document.getElementById("checkout").addEventListener("click", function(event) {
+   // pop up message after submit is clciked
+    alert("Thank you for your order!");
+  });
+
+
+     
+  </script>
+</html>
